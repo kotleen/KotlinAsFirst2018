@@ -53,6 +53,8 @@ class Tests {
     @Test
     @Tag("Example")
     fun digitCountInNumber() {
+        assertEquals(3, digitCountInNumber(4784041, 4))
+        assertEquals(1, digitCountInNumber(0, 0))
         assertEquals(1, digitCountInNumber(0, 0))
         assertEquals(1, digitCountInNumber(7, 7))
         assertEquals(0, digitCountInNumber(21, 3))
@@ -64,6 +66,7 @@ class Tests {
     @Test
     @Tag("Trivial")
     fun digitNumber() {
+        assertEquals(3, digitNumber(123))
         assertEquals(1, digitNumber(0))
         assertEquals(1, digitNumber(7))
         assertEquals(2, digitNumber(10))
@@ -75,6 +78,7 @@ class Tests {
     @Test
     @Tag("Easy")
     fun fib() {
+        assertEquals(1836311903, fib(46))
         assertEquals(1, fib(1))
         assertEquals(1, fib(2))
         assertEquals(2, fib(3))
@@ -216,6 +220,7 @@ class Tests {
         assertTrue(hasDifferentDigits(54))
         assertTrue(hasDifferentDigits(222266666))
         assertFalse(hasDifferentDigits(0))
+        assertFalse(hasDifferentDigits(9))
         assertFalse(hasDifferentDigits(777))
     }
 

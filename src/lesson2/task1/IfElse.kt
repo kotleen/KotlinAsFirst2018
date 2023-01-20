@@ -2,8 +2,12 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import kotlin.math.PI
+import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sqrt
+import kotlin.math.abs
 
 /**
  * Пример
@@ -62,7 +66,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String
+{
+    if ( age in 5..20 || age % 10 in 5..9 || age % 10 == 0 || age in 105..120 ) return "$age лет" ;
+    if ( age % 10 == 1 ) return "$age год";
+    return "$age года"
+}
 
 /**
  * Простая
@@ -71,9 +80,18 @@ fun ageDescription(age: Int): String = TODO()
  * и t3 часов — со скоростью v3 км/час.
  * Определить, за какое время он одолел первую половину пути?
  */
-fun timeForHalfWay(t1: Double, v1: Double,
-                   t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+fun timeForHalfWay(t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double): Double
+{
+    val put = t1 * v1 + t2 * v2 + t3 * v3;
+    println(put);
+
+    if (put / 2 <= t1 * v1 + t2 * v2) return t1 + (put / 2 - t1 * v1) / v2;
+    if (put / 2 > t1 * v1 + t2 * v2) return t1 + t2 + (put / 2 - t1 * v1 + t2 * v2) / v3;
+    return 13.0;
+   // if (put/2 <= t1*v1) return ((put/2)/v1);
+   // if (put / 2 <= t1 * v1 + t2 * v2) {return t1 + (put/2 - t1*v1) * v2; println(t1 + (put/2 - t1*v1) * v2);}
+   // return 4.0//t1+t2+ (put/2-t1*v1+t2*v2)*v3;
+}
 
 /**
  * Простая
@@ -84,9 +102,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
-fun whichRookThreatens(kingX: Int, kingY: Int,
-                       rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int = TODO()
+fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int): Int
+{
+    if ( (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) ) return 3;
+    if (kingX == rookX1 || kingY == rookY1) return 1;
+    if (kingX == rookX2 || kingY == rookY2) return 2;
+    return 0;
+}
 
 /**
  * Простая
@@ -98,9 +120,15 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  * и 3, если угроза есть и от ладьи и от слона.
  * Считать, что ладья и слон не могут загораживать друг друга.
  */
-fun rookOrBishopThreatens(kingX: Int, kingY: Int,
-                          rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int = TODO()
+fun rookOrBishopThreatens(kingX: Int, kingY: Int, rookX: Int, rookY: Int, bishopX: Int, bishopY: Int): Int
+{
+    if ((kingX == rookX || kingY == rookY) && abs(kingX - bishopX) == abs(kingY - bishopY)) return 3;
+    if ((kingX == rookX || kingY == rookY)) return 1;
+    if (abs(kingX - bishopX) == abs(kingY - bishopY)) return 2;
+    return 0;
+
+
+}
 
 /**
  * Простая
@@ -110,7 +138,17 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int
+{
+    val alpha = cos((sqr(a)+sqr(c)-sqr(b))/(2*a*c));
+    val beta = cos((sqr(a)+sqr(b)-sqr(c))/(2*a*b));
+    val gamma = cos((sqr(b)+sqr(c)-sqr(a))/(2*c*b));
+
+    println(alpha);
+    println(beta);
+    println(gamma);
+    return -1;
+}
 
 /**
  * Средняя
@@ -120,4 +158,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
+{
+    if ((a in c..d) && (b in c..d)) return b-a;
+    if ((c in a..b) && (d in a..b)) return d-c;
+    if (b in c..d) return b-c;
+    if (a in c..d) return d-a;
+    return -1;
+}
